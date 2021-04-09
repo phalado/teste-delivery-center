@@ -1,0 +1,27 @@
+version: "3.5"
+
+services:
+  web:
+    container_name: teste-delivery-center
+    build: .
+    volumes:
+      - ".:/teste-delivery-center/"
+    depends_on:
+      - db
+    environment:
+      PG_PASSWORD: postgres
+    ports:
+      - "3002:3002"
+    expose:
+      - "3002"
+
+  db:
+    container_name: teste-delivery-center-db
+    image: postgres:13.1
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
