@@ -19,4 +19,3 @@ production:
   database: teste-delivery-center_production
   username: teste-delivery-center
   password: <%= ENV['teste-delivery-center_DATABASE_PASSWORD'] %>
-git ini
