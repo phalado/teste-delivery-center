@@ -26,5 +26,6 @@ RSpec.describe Order, type: :model do
     it { should belong_to(:buyer) }
     it { should have_many(:order_items).dependent(:destroy) }
     it { should have_many(:payments).dependent(:destroy) }
+    it { should have_one(:shipping).dependent(:destroy) }
   end
 end

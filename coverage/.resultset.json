@@ -16,6 +16,7 @@
           null,
           1,
           1,
+          1,
           null
         ]
       },
@@ -24,6 +25,16 @@
           null,
           null,
           null,
+          1,
+          1,
+          null
+        ]
+      },
+      "/teste-delivery-center/app/models/shipping.rb": {
+        "lines": [
+          null,
+          null,
+          1,
           1,
           1,
           null
@@ -38,8 +49,21 @@
           1,
           null
         ]
+      },
+      "/teste-delivery-center/app/models/order.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null
+        ]
       }
     },
-    "timestamp": 1618082331
+    "timestamp": 1618084501
   }
 }
