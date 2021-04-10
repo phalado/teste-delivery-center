@@ -23,6 +23,8 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'test associations' do
+    it { should belong_to(:buyer) }
     it { should have_many(:order_items).dependent(:destroy) }
+    it { should have_many(:payments).dependent(:destroy) }
   end
 end

@@ -3,21 +3,27 @@
     "coverage": {
       "/teste-delivery-center/app/helpers/application_helper.rb": {
         "lines": [
+          null,
+          null,
+          null,
           1,
           null
         ]
       },
-      "/teste-delivery-center/app/models/order_item.rb": {
+      "/teste-delivery-center/app/models/buyer.rb": {
         "lines": [
-          1,
-          1,
           null,
+          null,
+          1,
           1,
           null
         ]
       },
       "/teste-delivery-center/app/models/application_record.rb": {
         "lines": [
+          null,
+          null,
+          null,
           1,
           1,
           null
@@ -25,22 +31,17 @@
       },
       "/teste-delivery-center/app/models/order.rb": {
         "lines": [
-          1,
-          1,
-          1,
-          null
-        ]
-      },
-      "/teste-delivery-center/app/models/payment.rb": {
-        "lines": [
+          null,
+          null,
           1,
           1,
           null,
+          1,
           1,
           null
         ]
       }
     },
-    "timestamp": 1618065498
+    "timestamp": 1618076632
   }
 }

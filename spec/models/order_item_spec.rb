@@ -12,7 +12,7 @@ RSpec.describe OrderItem, type: :model do
   end
 
   describe 'test presence of columns' do
-    test_cases = %i[order_id external_id title quantity unit_price full_unit_price]
+    test_cases = %i[order_id item quantity unit_price full_unit_price]
 
     test_cases.each do |column|
       it { should have_db_column column }
@@ -24,7 +24,7 @@ RSpec.describe OrderItem, type: :model do
   end
 
   describe 'test validations' do
-    test_cases = %i[external_id title quantity unit_price]
+    test_cases = %i[item quantity unit_price]
 
     test_cases.each do |present_column|
       it { should validate_presence_of present_column }

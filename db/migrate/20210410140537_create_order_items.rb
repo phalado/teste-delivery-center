@@ -4,8 +4,7 @@ class CreateOrderItems < ActiveRecord::Migration[6.1]
   def change
     create_table :order_items do |t|
       t.references :order, null: false
-      t.bigint :external_id
-      t.string :title
+      t.jsonb :item, default: { id: '', title: '' }
       t.integer :quantity
       t.float :unit_price
       t.float :full_unit_price

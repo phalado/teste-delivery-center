@@ -13,5 +13,7 @@ FactoryBot.define do
     paid_amount { Faker::Number.between(from: 0.0, to: total_amount_with_shipping) }
     expiration_date { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
     status { 'paid' }
+
+    buyer
   end
 end

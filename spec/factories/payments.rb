@@ -15,5 +15,7 @@ FactoryBot.define do
     installment_amount { total_paid_amount }
     date_approved { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
     date_created { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
+
+    order
   end
 end
