@@ -27,10 +27,20 @@
         "lines": [
           1,
           1,
+          1,
+          null
+        ]
+      },
+      "/teste-delivery-center/app/models/payment.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
           null
         ]
       }
     },
-    "timestamp": 1618064441
+    "timestamp": 1618065498
   }
 }

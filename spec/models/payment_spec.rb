@@ -2,17 +2,20 @@
 
 require 'rails_helper'
 
-RSpec.describe OrderItem, type: :model do
+RSpec.describe Payment, type: :model do
   describe 'Test factory' do
-    let!(:order_item) { build(:order_item, order: create(:order)) }
+    let!(:payment) { build(:payment, order: create(:order)) }
 
     it 'is valid' do
-      expect(order_item).to be_valid
+      expect(payment).to be_valid
     end
   end
 
   describe 'test presence of columns' do
-    test_cases = %i[order_id external_id title quantity unit_price full_unit_price]
+    test_cases = %i[
+      order_id external_id order_external_id payer_external_id installments payment_type status transaction_amount
+      taxes_amount shipping_cost total_paid_amount installment_amount date_approved date_created
+    ]
 
     test_cases.each do |column|
       it { should have_db_column column }
@@ -24,7 +27,7 @@ RSpec.describe OrderItem, type: :model do
   end
 
   describe 'test validations' do
-    test_cases = %i[external_id title quantity unit_price]
+    test_cases = %i[external_id order_external_id payer_external_id]
 
     test_cases.each do |present_column|
       it { should validate_presence_of present_column }

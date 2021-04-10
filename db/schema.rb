@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,37 +12,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_140537) do
-
+ActiveRecord::Schema.define(version: 20_210_410_142_419) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "order_items", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "external_id"
-    t.string "title"
-    t.integer "quantity"
-    t.float "unit_price"
-    t.float "full_unit_price"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["order_id"], name: "index_order_items_on_order_id"
+  create_table 'order_items', force: :cascade do |t|
+    t.bigint 'order_id', null: false
+    t.bigint 'external_id'
+    t.string 'title'
+    t.integer 'quantity'
+    t.float 'unit_price'
+    t.float 'full_unit_price'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['order_id'], name: 'index_order_items_on_order_id'
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.bigint "external_id"
-    t.bigint "store_id"
-    t.datetime "date_created"
-    t.datetime "date_cloased"
-    t.datetime "last_updated"
-    t.float "total_amount"
-    t.float "total_shipping"
-    t.float "total_amount_with_shipping"
-    t.float "paid_amount"
-    t.datetime "expiration_date"
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'orders', force: :cascade do |t|
+    t.bigint 'external_id'
+    t.bigint 'store_id'
+    t.datetime 'date_created'
+    t.datetime 'date_cloased'
+    t.datetime 'last_updated'
+    t.float 'total_amount'
+    t.float 'total_shipping'
+    t.float 'total_amount_with_shipping'
+    t.float 'paid_amount'
+    t.datetime 'expiration_date'
+    t.string 'status'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
+  create_table 'payments', force: :cascade do |t|
+    t.bigint 'order_id', null: false
+    t.bigint 'external_id'
+    t.bigint 'order_external_id'
+    t.bigint 'payer_external_id'
+    t.integer 'installments'
+    t.string 'payment_type'
+    t.string 'status'
+    t.float 'transaction_amount'
+    t.float 'taxes_amount'
+    t.float 'shipping_cost'
+    t.float 'total_paid_amount'
+    t.float 'installment_amount'
+    t.datetime 'date_approved'
+    t.datetime 'date_created'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['order_id'], name: 'index_payments_on_order_id'
+  end
 end

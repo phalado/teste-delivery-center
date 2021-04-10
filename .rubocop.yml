@@ -1,0 +1,15 @@
+AllCops:
+  SuggestExtensions: false
+  TargetRubyVersion: 3.0.0
+  Exclude:
+    - "db/**/*"
+    - "db/**/*"
+    - "bin/*"
+    - "config/**/*"
+    - "Guardfile"
+    - "node_modules/**/*"
+    - "Rakefile"
+    - "README.md"
+    - "spec/support/**/*"
+    - "spec/factories/**/*"
+  NewCops: enable
