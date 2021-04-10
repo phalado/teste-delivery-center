@@ -10,7 +10,7 @@
           null
         ]
       },
-      "/teste-delivery-center/app/models/buyer.rb": {
+      "/teste-delivery-center/app/models/address.rb": {
         "lines": [
           null,
           null,
@@ -29,19 +29,17 @@
           null
         ]
       },
-      "/teste-delivery-center/app/models/order.rb": {
+      "/teste-delivery-center/app/models/buyer.rb": {
         "lines": [
           null,
           null,
           1,
-          1,
-          null,
           1,
           1,
           null
         ]
       }
     },
-    "timestamp": 1618076632
+    "timestamp": 1618082331
   }
 }

@@ -4,10 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Buyer, type: :model do
   describe 'Test factory' do
-    let!(:order) { build(:order) }
+    let!(:buyer) { build(:buyer) }
 
     it 'is valid' do
-      expect(order).to be_valid
+      expect(buyer).to be_valid
     end
   end
 

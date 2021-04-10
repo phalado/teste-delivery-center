@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_172504) do
+ActiveRecord::Schema.define(version: 2021_04_10_183635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.bigint "buyer_id"
+    t.bigint "external_id"
+    t.string "street_name"
+    t.string "street_number"
+    t.string "comment"
+    t.string "zip_code"
+    t.jsonb "city", default: {"name"=>""}
+    t.jsonb "state", default: {"name"=>""}
+    t.jsonb "country", default: {"id"=>"", "name"=>""}
+    t.jsonb "neighborhood", default: {"id"=>"", "name"=>""}
+    t.float "latitude"
+    t.float "longitude"
+    t.string "receiver_phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["buyer_id"], name: "index_addresses_on_buyer_id"
+  end
 
   create_table "buyers", force: :cascade do |t|
     t.bigint "external_id"
