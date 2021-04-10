@@ -15,8 +15,6 @@ SimpleCov.start do
   add_group 'Models', 'app/models'
   add_group 'Services', 'app/services'
   add_group 'Helpers', 'app/helpers'
-  add_group 'Mailers', 'app/mailers'
-  add_group 'Jobs', 'app/jobs'
 end
 
 require File.expand_path('../config/environment', __dir__)

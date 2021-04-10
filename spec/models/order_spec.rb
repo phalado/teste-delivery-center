@@ -18,4 +18,8 @@ RSpec.describe Order, type: :model do
       it { should have_db_column column }
     end
   end
+
+  describe 'test associations' do
+    it { should have_many(:order_items).dependent(:destroy) }
+  end
 end

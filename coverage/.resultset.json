@@ -7,8 +7,11 @@
           null
         ]
       },
-      "/teste-delivery-center/app/models/order.rb": {
+      "/teste-delivery-center/app/models/order_item.rb": {
         "lines": [
+          1,
+          1,
+          null,
           1,
           null
         ]
@@ -19,8 +22,15 @@
           1,
           null
         ]
+      },
+      "/teste-delivery-center/app/models/order.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
       }
     },
-    "timestamp": 1618063412
+    "timestamp": 1618064441
   }
 }
