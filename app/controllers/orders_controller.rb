@@ -9,11 +9,15 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = Order.all
+
+    render json: @orders, status: :found
   end
 
   # GET /orders/1
   # GET /orders/1.json
-  def show; end
+  def show
+    render json: @order, status: :found if @order
+  end
 
   # POST /orders
   # POST /orders.json
@@ -34,8 +38,8 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
-    if @order.update(order_params)
-      render :show, status: :ok, location: @order
+    if @order.update(update_order_params)
+      render json: @order, status: :ok, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
     end
@@ -109,5 +113,12 @@ class OrdersController < ApplicationController
       :store_id, :date_created, :date_cloased, :last_updated, :total_amount, :total_shipping,
       :total_amount_with_shipping, :paid_amount, :expiration_date, :status
     ).merge({ external_id: params[:id], buyer: @buyer })
+  end
+
+  def update_order_params
+    params.permit(
+      :store_id, :date_created, :date_cloased, :last_updated, :total_amount, :total_shipping,
+      :total_amount_with_shipping, :paid_amount, :expiration_date, :status
+    )
   end
 end
