@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
-  describe "#index" do
+  describe '#index' do
     let!(:orders) { create_list(:order, 2) }
 
     it 'request is answered' do
@@ -12,7 +14,7 @@ RSpec.describe OrdersController, type: :controller do
     end
   end
 
-  describe "#show" do
+  describe '#show' do
     let!(:order) { create(:order) }
 
     it 'request is answered' do
@@ -22,7 +24,7 @@ RSpec.describe OrdersController, type: :controller do
     end
   end
 
-  describe "#delete" do
+  describe '#delete' do
     let!(:order) { create(:order) }
 
     it 'delete order' do
@@ -32,18 +34,18 @@ RSpec.describe OrdersController, type: :controller do
     end
   end
 
-  describe "#update" do
+  describe '#update' do
     let!(:order) { create(:order) }
-    
+
     it 'update orde\'s status' do
       expect do
-        patch :update, as: :json, params: { id: order.id, status: "not paid" }
+        patch :update, as: :json, params: { id: order.id, status: 'not paid' }
         order.reload
       end.to change { order.status }.to('not paid')
     end
   end
 
-  describe "#create" do
+  describe '#create' do
     it 'create an order' do
       expect do
         post :create, as: :json, params: order_payload_params

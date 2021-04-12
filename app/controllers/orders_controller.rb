@@ -27,7 +27,8 @@ class OrdersController < ApplicationController
     if @order.save
       fetch_or_create_shipping
       fetch_or_create_items
-      # fetch_or_create_payments
+      fetch_or_create_payments
+      @order.submit_payload
 
       render json: @order, status: :created, location: @order
     else
@@ -59,28 +60,37 @@ class OrdersController < ApplicationController
   end
 
   def fetch_or_create_buyer
+    p buyer_hashes = parse_buyer_hashes(params.require(:buyer))
     buyer_params = params.require(:buyer).permit(
-      :nickname, :email, :phone, :first_name, :last_name, :billing_info
-    ).merge({ external_id: params[:buyer][:id] })
+      :nickname, :email, :first_name, :last_name
+    ).merge({
+              external_id: params[:buyer][:id],
+              phone: buyer_hashes[:phone],
+              billing_info: buyer_hashes[:billing_info]
+            })
 
     @buyer = Buyer.find_or_create_by(buyer_params)
 
-    fetch_or_create_address if @buyer
+    fetch_or_create_address(params.require(:shipping)) if @buyer
   end
 
-  def fetch_or_create_address
-    adress_params = params.require(:shipping).require(:receiver_address).permit(
-      :street_name, :street_number, :comment, :zip_code, :city, :state, :country, :neighborhood, :latitude,
+  def fetch_or_create_address(shipping_params)
+    address_hashes = parse_address_hashes(shipping_params.require(:receiver_address))
+    address_params = shipping_params.require(:receiver_address).permit(
+      :street_name, :street_number, :comment, :zip_code, :latitude,
       :longitude, :receiver_phone
-    ).merge({ buyer: @buyer, external_id: params[:shipping][:receiver_address][:id] })
+    ).merge({
+              buyer: @buyer, external_id: shipping_params[:receiver_address][:id], city: address_hashes[:city],
+              state: address_hashes[:state], country: address_hashes[:country], neighborhood: address_hashes[:neighborhood]
+            })
 
-    @address = Address.find_or_create_by(adress_params)
+    @address = Address.find_or_create_by(address_params)
   end
 
   def fetch_or_create_shipping
     shipping_params = params.require(:shipping).permit(
       :shipment_type, :date_created, :receiver_address
-    ).merge({ external_id: params[:shipping][:id] })
+    ).merge({ external_id: params[:shipping][:id], order: @order })
 
     @shipping = Shipping.create(shipping_params)
     @address.update!(shipping: @shipping)
@@ -100,9 +110,14 @@ class OrdersController < ApplicationController
   def fetch_or_create_payments
     params[:payments].each do |payment_params|
       create_params = payment_params.permit(
-        :order_external_id, :payer_external_id, :installments, :payment_type, :status, :transaction_amount,
-        :taxes_amount, :shipping_cost, :total_paid_amount, :installment_amount, :date_approved, :date_created
-      ).merge({ external_id: payment_params[:id], order: @order })
+        :installments, :payment_type, :status, :transaction_amount, :taxes_amount, :shipping_cost,
+        :total_paid_amount, :installment_amount, :date_approved, :date_created
+      ).merge({
+                external_id: payment_params[:id],
+                order: @order,
+                order_external_id: payment_params[:order_id],
+                payer_external_id: payment_params[:payer_id]
+              })
 
       Payment.create(create_params)
     end
@@ -120,5 +135,23 @@ class OrdersController < ApplicationController
       :store_id, :date_created, :date_cloased, :last_updated, :total_amount, :total_shipping,
       :total_amount_with_shipping, :paid_amount, :expiration_date, :status
     )
+  end
+
+  def parse_buyer_hashes(buyer_params)
+    phone = { area_code: buyer_params[:phone][:area_code], number: buyer_params[:phone][:number] }
+    billing_info = {
+      doc_type: buyer_params[:billing_info][:doc_type], doc_number: buyer_params[:billing_info][:doc_number]
+    }
+
+    { phone: phone, billing_info: billing_info }
+  end
+
+  def parse_address_hashes(address_params)
+    city = { name: address_params[:city][:name] }
+    state = { name: address_params[:state][:name] }
+    country = { id: address_params[:country][:id], name: address_params[:country][:name] }
+    neighborhood = { id: address_params[:neighborhood][:id], name: address_params[:neighborhood][:name] }
+
+    { city: city, state: state, country: country, neighborhood: neighborhood }
   end
 end
