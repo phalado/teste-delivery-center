@@ -12,7 +12,7 @@ module PayloadData
       [:city, order.shipping.receiver_address.city['name']],
       [:district, order.shipping.receiver_address.neighborhood['name']],
       [:street, order.shipping.receiver_address.street_name],
-      [:complement, ''],
+      [:complement, 'house'],
       [:latitude, order.shipping.receiver_address.latitude],
       [:longitude, order.shipping.receiver_address.longitude],
       [:dtOrderCreate, order.date_created.strftime('%FT%T.%LZ')],

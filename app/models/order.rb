@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'json'
+
+# Order model
 class Order < ApplicationRecord
   belongs_to :buyer
 
@@ -8,14 +11,12 @@ class Order < ApplicationRecord
   has_one :shipping, dependent: :destroy
 
   def submit_payload
-    payload = self.payload.stringify_keys
+    payload = self.payload.to_json
     url = 'https://delivery-center-recruitment-ap.herokuapp.com'
-    path= '/'
     headers = { 'X-Sent': DateTime.now.strftime('%Hh%M-%d/%m/%y') }
     site = RestClient::Resource.new url
-    p payload
 
-    site[path].post payload, headers
+    site['/'].post payload, headers
   end
 
   def payload

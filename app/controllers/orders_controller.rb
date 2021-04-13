@@ -80,8 +80,12 @@ class OrdersController < ApplicationController
       :street_name, :street_number, :comment, :zip_code, :latitude,
       :longitude, :receiver_phone
     ).merge({
-              buyer: @buyer, external_id: shipping_params[:receiver_address][:id], city: address_hashes[:city],
-              state: address_hashes[:state], country: address_hashes[:country], neighborhood: address_hashes[:neighborhood]
+              buyer: @buyer,
+              external_id: shipping_params[:receiver_address][:id],
+              city: address_hashes[:city],
+              state: address_hashes[:state],
+              country: address_hashes[:country],
+              neighborhood: address_hashes[:neighborhood]
             })
 
     @address = Address.find_or_create_by(address_params)

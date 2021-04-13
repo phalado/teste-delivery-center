@@ -13,3 +13,10 @@ AllCops:
     - "spec/support/**/*"
     - "spec/factories/**/*"
   NewCops: enable
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
+Metrics/MethodLength:
+  Enabled: false
