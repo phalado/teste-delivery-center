@@ -8,20 +8,15 @@ class Order < ApplicationRecord
   has_one :shipping, dependent: :destroy
 
   def submit_payload
-    # p ''
-    # p ''
-    # p self
-    # p self.buyer
-    # p self.order_items
-    # p self.payments
-    # p self.shipping
-    # p self.shipping.receiver_address
-    # p ''
-    # p ''
+    payload = self.payload.stringify_keys
+    url = 'https://delivery-center-recruitment-ap.herokuapp.com'
+    path= '/'
+    headers = { 'X-Sent': DateTime.now.strftime('%Hh%M-%d/%m/%y') }
+    site = RestClient::Resource.new url
     p payload
-  end
 
-  private
+    site[path].post payload, headers
+  end
 
   def payload
     {
@@ -36,7 +31,7 @@ class Order < ApplicationRecord
       city: shipping.receiver_address.city['name'],
       district: shipping.receiver_address.neighborhood['name'],
       street: shipping.receiver_address.street_name,
-      complement: '',
+      complement: 'house',
       latitude: shipping.receiver_address.latitude,
       longitude: shipping.receiver_address.longitude,
       dtOrderCreate: date_created.strftime('%FT%T.%LZ'),
@@ -48,12 +43,14 @@ class Order < ApplicationRecord
     }
   end
 
+  private
+
   def customer_payload
     {
       externalCode: buyer.external_id.to_s,
       name: buyer.nickname,
       email: buyer.email,
-      contact: buyer.phone['area_code'].to_s + buyer.phone['number']
+      contact: buyer.phone['area_code'].to_s + buyer.phone['number'].to_s
     }
   end
 

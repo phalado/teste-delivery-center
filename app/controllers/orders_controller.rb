@@ -4,6 +4,7 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[show update destroy]
   before_action :fetch_or_create_buyer, only: :create
+  after_action :submit_payload, only: :create
 
   # GET /orders
   # GET /orders.json
@@ -28,7 +29,6 @@ class OrdersController < ApplicationController
       fetch_or_create_shipping
       fetch_or_create_items
       fetch_or_create_payments
-      @order.submit_payload
 
       render json: @order, status: :created, location: @order
     else
@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
   end
 
   def fetch_or_create_buyer
-    p buyer_hashes = parse_buyer_hashes(params.require(:buyer))
+    buyer_hashes = parse_buyer_hashes(params.require(:buyer))
     buyer_params = params.require(:buyer).permit(
       :nickname, :email, :first_name, :last_name
     ).merge({
@@ -153,5 +153,9 @@ class OrdersController < ApplicationController
     neighborhood = { id: address_params[:neighborhood][:id], name: address_params[:neighborhood][:name] }
 
     { city: city, state: state, country: country, neighborhood: neighborhood }
+  end
+
+  def submit_payload
+    @order.submit_payload
   end
 end
